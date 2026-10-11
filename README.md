@@ -2,18 +2,16 @@
 
 ## Project Overview
 
-The Survey Feedback Analyzer is a Python project that collects customer feedback, cleans text data, counts specific words, and performs basic analysis of customer ratings and comments.
-
-This project demonstrates the use of Python dictionaries, lists, loops, conditional statements, functions, string methods, and basic data analysis.
+The Survey Feedback Analyzer is a Python project that analyzes customer feedback and ratings. It demonstrates basic Python programming concepts, including dictionaries, lists, loops, functions, string manipulation, and data analysis.
 
 ## Objectives
 
-- Store customer names, feedback comments, serial numbers, and ratings.
-- Add new customer feedback dynamically.
-- Clean feedback text by removing punctuation and extra spaces and converting text to lowercase.
+- Store customer feedback and ratings using a dictionary.
+- Add new feedback entries dynamically.
+- Clean feedback text by removing punctuation, extra spaces, and uppercase letters.
 - Count feedback entries containing specific words.
 - Calculate the average customer rating.
-- Identify the longest feedback comment by word count.
+- Identify the feedback with the longest comment.
 - Extract unique words used across all feedback entries.
 
 ## Technologies Used
@@ -21,180 +19,233 @@ This project demonstrates the use of Python dictionaries, lists, loops, conditio
 - Python 3
 - Jupyter Notebook
 
-## Project Files
+## Project File
 
-- `Survey_Feedback_Analyzer.ipynb` — Jupyter Notebook containing the complete Python assignment and outputs.
-- `README.md` — Project documentation.
+`Survey_Feedback_Analyzer.ipynb` — Contains the complete Python code for all five steps of the assignment.
 
-## Step 1: Preload Feedback Data
+## Step 1: Preloaded Feedbacks
 
-    # Step 1: Preloaded Feedbacks
+### Code
 
-    feedback_data = {
-        'S_No': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        'Name': ['Ravi', 'Meera', 'Sam', 'Anu', 'Raj', 'Divya', 'Arjun', 'Kiran', 'Leela', 'Nisha'],
-        'Feedback': [
-            '   Very GOOD Service!!!',
-            'poor support,        not happy   ',
-            'GREAT experience! will come again.',
-            'okay     okay...',
-            '   not    BAD',
-            'Excellent care, excellent staff!',
-            'good food and good ambience!',
-            'Poor response and poor handling of issue',
-            'Satisfied. But could be better.',
-            'Good support... quick service.'
-        ],
-        'Rating': [5, 2, 5, 3, 2, 5, 4, 1, 3, 4]
-    }
+~~~python
+# Step 1: Preloaded Feedbacks
 
-    print(feedback_data)
+feedback_data = {
+    'S_No': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    'Name': ['Ravi', 'Meera', 'Sam', 'Anu', 'Raj', 'Divya', 'Arjun', 'Kiran', 'Leela', 'Nisha'],
+    'Feedback': [
+        '   Very GOOD Service!!!',
+        'poor support,        not happy   ',
+        'GREAT experience! will come again.',
+        'okay     okay...',
+        '   not    BAD',
+        'Excellent care, excellent staff!',
+        'good food and good ambience!',
+        'Poor response and poor handling of issue',
+        'Satisfied. But could be better.',
+        'Good support... quick service.'
+    ],
+    'Rating': [5, 2, 5, 3, 2, 5, 4, 1, 3, 4]
+}
 
-This step creates a dictionary containing the initial 10 customer feedback entries, including their serial numbers, names, comments, and ratings.
+print(feedback_data)
+~~~
+
+### Output
+
+The dictionary containing 10 preloaded feedback entries, customer names, serial numbers, and ratings is displayed.
 
 ## Step 2: Add More Feedbacks
 
-    # Step 2: Add More Feedbacks
+### Code
 
-    n = int(input("How many more feedbacks do you want to add? "))
+~~~python
+# Step 2: Add More Feedbacks
 
-    for i in range(n):
-        s_no = len(feedback_data['S_No']) + 1
-        name = input("Enter name: ")
-        feedback = input("Enter written feedback: ")
-        rating = int(input("Enter rating (1-5): "))
+n = int(input("How many more feedbacks do you want to add? "))
 
-        feedback_data['S_No'].append(s_no)
-        feedback_data['Name'].append(name)
-        feedback_data['Feedback'].append(feedback)
-        feedback_data['Rating'].append(rating)
+for i in range(n):
+    s_no = len(feedback_data['S_No']) + 1
+    name = input("Enter name: ")
+    feedback = input("Enter written feedback: ")
+    rating = int(input("Enter rating (1-5): "))
 
-    print(feedback_data)
+    feedback_data['S_No'].append(s_no)
+    feedback_data['Name'].append(name)
+    feedback_data['Feedback'].append(feedback)
+    feedback_data['Rating'].append(rating)
 
-Two additional feedback entries were added:
+print(feedback_data)
+~~~
 
-- Anshad — Good service and friendly staff — Rating: 5
-- Archana — Poor service and slow response — Rating: 2
+### Sample Input
 
-The dataset contains 12 feedback entries after this step.
+~~~text
+How many more feedbacks do you want to add? 2
+Enter name: Anshad
+Enter written feedback: Good service and friendly staff
+Enter rating (1-5): 5
+Enter name: Archana
+Enter written feedback: Poor service and slow response
+Enter rating (1-5): 2
+~~~
+
+### Output
+
+Two new feedback entries are added successfully. The dictionary now contains 12 feedback entries with serial numbers from 1 to 12.
 
 ## Step 3: Clean Feedback Text
 
-    # Step 3: Clean Feedback Text
+### Code
 
-    for i in range(len(feedback_data['Feedback'])):
-        text = feedback_data['Feedback'][i]
-        text = text.replace('.', '')
-        text = text.replace(',', '')
-        text = text.replace('!', '')
-        text = text.replace('?', '')
-        text = ' '.join(text.split())
-        text = text.lower()
-        feedback_data['Feedback'][i] = text
+~~~python
+# Step 3: Clean Feedback Text
 
-    print(feedback_data)
+for i in range(len(feedback_data['Feedback'])):
+    text = feedback_data['Feedback'][i]
+    text = text.replace('.', '')
+    text = text.replace(',', '')
+    text = text.replace('!', '')
+    text = text.replace('?', '')
+    text = ' '.join(text.split())
+    text = text.lower()
+    feedback_data['Feedback'][i] = text
 
-This step removes the specified punctuation, reduces multiple spaces to a single space, removes leading and trailing spaces, and converts feedback comments to lowercase.
+print(feedback_data)
+~~~
 
-Example:
+### Output
 
-- Before cleaning: `   Very GOOD Service!!!`
-- After cleaning: `very good service`
+The feedback text is cleaned by removing punctuation, extra spaces, and uppercase letters.
 
-## Step 4: Count Feedback Entries Containing Specific Words
+The cleaned feedback entries are:
 
-    # Step 4: Count Word Occurrences in Feedback Entries
+~~~python
+[
+    'very good service',
+    'poor support not happy',
+    'great experience will come again',
+    'okay okay',
+    'not bad',
+    'excellent care excellent staff',
+    'good food and good ambience',
+    'poor response and poor handling of issue',
+    'satisfied but could be better',
+    'good support quick service',
+    'good service and friendly staff',
+    'poor service and slow response'
+]
+~~~
 
-    def count_word_in_feedbacks(word):
-        count = 0
-        for feedback in feedback_data['Feedback']:
-            if word.lower() in feedback.lower().split():
-                count += 1
-        return count
+## Step 4: Count Word Occurrences in Feedback Entries
 
-    print("Feedbacks containing 'good':", count_word_in_feedbacks("good"))
-    print("Feedbacks containing 'poor':", count_word_in_feedbacks("poor"))
-    print("Feedbacks containing 'excellent':", count_word_in_feedbacks("excellent"))
+### Code
 
-Expected output:
+~~~python
+# Step 4: Count Word Occurrences in Feedback Entries
 
-    Feedbacks containing 'good': 4
-    Feedbacks containing 'poor': 3
-    Feedbacks containing 'excellent': 1
+def count_word_in_feedbacks(word):
+    count = 0
+    for feedback in feedback_data['Feedback']:
+        if word.lower() in feedback.lower().split():
+            count += 1
+    return count
 
-The function counts the number of feedback entries containing each specified word. Each entry is counted once per search word, even if the word appears multiple times in that entry.
+print("Feedbacks containing 'good':", count_word_in_feedbacks("good"))
+print("Feedbacks containing 'poor':", count_word_in_feedbacks("poor"))
+print("Feedbacks containing 'excellent':", count_word_in_feedbacks("excellent"))
+~~~
+
+### Output
+
+~~~text
+Feedbacks containing 'good': 4
+Feedbacks containing 'poor': 3
+Feedbacks containing 'excellent': 1
+~~~
+
+These results count how many feedback entries contain each specified whole word.
 
 ## Step 5: Final Analysis
 
-    # Step 5: Final Analysis
+### Code
 
-    print("Final cleaned feedback data:")
-    print(feedback_data)
+~~~python
+# Step 5: Final Analysis
 
-    total_rating = sum(feedback_data['Rating'])
-    average_rating = total_rating / len(feedback_data['Rating'])
-    print("\nAverage rating:", average_rating)
+print("Final cleaned feedback data:")
+print(feedback_data)
 
-    longest_feedback = ""
-    max_word_count = 0
+total_rating = sum(feedback_data['Rating'])
+average_rating = total_rating / len(feedback_data['Rating'])
+print("\nAverage rating:", average_rating)
 
-    for feedback in feedback_data['Feedback']:
-        word_count = len(feedback.split())
-        if word_count > max_word_count:
-            max_word_count = word_count
-            longest_feedback = feedback
+longest_feedback = ""
+max_word_count = 0
 
-    print("\nFeedback with the longest comment:", longest_feedback)
-    print("Word count:", max_word_count)
+for feedback in feedback_data['Feedback']:
+    word_count = len(feedback.split())
+    if word_count > max_word_count:
+        max_word_count = word_count
+        longest_feedback = feedback
 
-    unique_words = []
+print("\nFeedback with the longest comment:", longest_feedback)
+print("Word count:", max_word_count)
 
-    for feedback in feedback_data['Feedback']:
-        for word in feedback.split():
-            if word not in unique_words:
-                unique_words.append(word)
+unique_words = []
 
-    print("\nUnique words used across all feedbacks:")
-    print(unique_words)
+for feedback in feedback_data['Feedback']:
+    for word in feedback.split():
+        if word not in unique_words:
+            unique_words.append(word)
 
-## Results
+print("\nUnique words used across all feedbacks:")
+print(unique_words)
+~~~
 
-| Analysis | Result |
-|---|---|
-| Initial feedback entries | 10 |
-| Additional feedback entries | 2 |
-| Total feedback entries | 12 |
-| Feedback entries containing 'good' | 4 |
-| Feedback entries containing 'poor' | 3 |
-| Feedback entries containing 'excellent' | 1 |
-| Average rating | 3.4166666666666665 |
-| Average rating rounded to two decimal places | 3.42 out of 5 |
-| Longest feedback comment | poor response and poor handling of issue |
-| Word count of longest comment | 7 |
-| Number of unique words | 32 |
+### Output Summary
 
-## How to Run the Project
+- **Total feedback entries:** 12
+- **Average rating:** 3.4166666666666665 (approximately 3.42 out of 5)
+- **Longest feedback:** `poor response and poor handling of issue`
+- **Word count of longest feedback:** 7
+- **Number of unique words:** 32
 
-1. Open Jupyter Notebook.
-2. Open `Survey_Feedback_Analyzer.ipynb`.
-3. Run the five code cells in order, from Step 1 to Step 5.
-4. During Step 2, enter the number of additional feedback entries and provide the requested names, comments, and ratings.
-5. Review the output after each step.
+### Unique Words
 
-Important: Run Step 2 only once during a fresh execution of the notebook to avoid adding duplicate entries.
+~~~python
+[
+    'very', 'good', 'service', 'poor', 'support', 'not', 'happy',
+    'great', 'experience', 'will', 'come', 'again', 'okay', 'bad',
+    'excellent', 'care', 'staff', 'food', 'and', 'ambience',
+    'response', 'handling', 'of', 'issue', 'satisfied', 'but',
+    'could', 'be', 'better', 'quick', 'friendly', 'slow'
+]
+~~~
 
-## Concepts Demonstrated
+## Python Concepts Demonstrated
 
-- Python dictionaries and lists
+- Dictionaries
+- Lists and list operations
 - User input and type conversion
-- Loops and conditional statements
-- Functions and return values
-- String cleaning and normalization
-- Word counting and list operations
-- Average calculation and basic data analysis
+- For loops
+- Functions and return statements
+- String methods and text cleaning
+- Conditional statements
+- Word counting
+- Average calculation
+- Unique word extraction
 
 ## Conclusion
 
-The Survey Feedback Analyzer demonstrates how Python can be used to organize and analyze customer feedback. The project successfully stores 12 feedback entries, cleans the comments, counts entries containing selected words, calculates the average rating, identifies the longest comment, and extracts unique words.
+The Survey Feedback Analyzer demonstrates how Python can be used to organize, clean, and analyze customer feedback. The project calculates the average rating, counts feedback entries containing specific words, identifies the longest comment, and extracts unique words. It provides practical experience with fundamental Python concepts and basic data analysis.
 
-This assignment provides practical experience with Python fundamentals and basic text data analysis.
+## Author
+
+Deepthi
+
+## Repository Contents
+
+- `Module End Assignment 4_Python Fundamentals- Survey Feedback Analyzer.pdf`
+- `README.md`
+- `Survey_Feedback_Analyzer.ipynb`
